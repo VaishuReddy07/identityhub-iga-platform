@@ -4,11 +4,11 @@ import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import org.keycloak.representations.idm.RoleRepresentation;
 
 @Service
 public class KeycloakAdminService {
@@ -34,5 +34,37 @@ public class KeycloakAdminService {
 
     public List<RoleRepresentation> getRoles() {
         return realm.roles().list();
+    }
+
+    public List<RoleRepresentation> getUserRoles(String userId) {
+        return realm.users()
+                .get(userId)
+                .roles()
+                .realmLevel()
+                .listEffective();
+    }
+
+    public void assignRole(String userId, String roleName) {
+        RoleRepresentation role = realm.roles()
+                .get(roleName)
+                .toRepresentation();
+
+        realm.users()
+                .get(userId)
+                .roles()
+                .realmLevel()
+                .add(List.of(role));
+    }
+
+    public void removeRole(String userId, String roleName) {
+        RoleRepresentation role = realm.roles()
+                .get(roleName)
+                .toRepresentation();
+
+        realm.users()
+                .get(userId)
+                .roles()
+                .realmLevel()
+                .remove(List.of(role));
     }
 }
