@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: identityhub-api
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://postgres:5432/identityhub}
+    username: ${DB_USER:identityhub}
+    password: ${DB_PASSWORD:identityhub_dev}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OIDC_ISSUER:http://localhost:8080/realms/identityhub}
+          jwk-set-uri: ${OIDC_JWK_SET_URI:http://keycloak:8080/realms/identityhub/protocol/openid-connect/certs}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

@@ -1,0 +1,82 @@
+{
+  "realm": "identityhub",
+  "enabled": true,
+  "displayName": "IdentityHub",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "roles": {
+    "realm": [
+      {"name": "EMPLOYEE", "description": "Standard employee access"},
+      {"name": "IAM_ADMIN", "description": "Identity and access administration"},
+      {"name": "SECURITY_ANALYST", "description": "Security audit access"}
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "identityhub-console",
+      "name": "IdentityHub Console",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": ["http://localhost:3000/*"],
+      "webOrigins": ["http://localhost:3000"]
+    },
+    {
+      "clientId": "employee-portal",
+      "name": "Employee Portal",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": ["http://localhost:3001/*"],
+      "webOrigins": ["http://localhost:3001"]
+    },
+    {
+      "clientId": "identityhub-api",
+      "name": "IdentityHub API",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "bearerOnly": true,
+      "publicClient": false,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false
+    }
+  ],
+  "users": [
+    {
+      "username": "vaishnavi",
+      "enabled": true,
+      "email": "vaishnavi@example.com",
+      "firstName": "Vaishnavi",
+      "lastName": "User",
+      "emailVerified": true,
+      "credentials": [{"type": "password", "value": "User123!", "temporary": false}],
+      "realmRoles": ["EMPLOYEE"]
+    },
+    {
+      "username": "iamadmin",
+      "enabled": true,
+      "email": "iamadmin@example.com",
+      "firstName": "IAM",
+      "lastName": "Admin",
+      "emailVerified": true,
+      "credentials": [{"type": "password", "value": "Admin123!", "temporary": false}],
+      "realmRoles": ["EMPLOYEE", "IAM_ADMIN"]
+    },
+    {
+      "username": "security",
+      "enabled": true,
+      "email": "security@example.com",
+      "firstName": "Security",
+      "lastName": "Analyst",
+      "emailVerified": true,
+      "credentials": [{"type": "password", "value": "Security123!", "temporary": false}],
+      "realmRoles": ["EMPLOYEE", "SECURITY_ANALYST"]
+    }
+  ]
+}

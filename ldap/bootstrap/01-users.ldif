@@ -1,0 +1,16 @@
+dn: ou=people,dc=identityhub,dc=local
+objectClass: organizationalUnit
+ou: people
+
+# Development-only LDAP user. The password is intentionally simple for the local lab.
+dn: uid=alice,ou=people,dc=identityhub,dc=local
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+uid: alice
+cn: Alice Martin
+sn: Martin
+givenName: Alice
+mail: alice@example.com
+userPassword: Alice123!
